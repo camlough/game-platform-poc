@@ -3,6 +3,7 @@ import { useState, Fragment, ChangeEvent, MouseEvent, ReactNode } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 // ** MUI Components
 import Box from '@mui/material/Box'
@@ -21,6 +22,8 @@ import InputAdornment from '@mui/material/InputAdornment'
 // ** Icons Imports
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
+
+import BlankLayout from '../components/BlankLayout'
 
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
@@ -46,6 +49,7 @@ const RegisterPage = () => {
   })
 
   const supabaseClient = useSupabaseClient()
+  const router = useRouter()
 
   const handleChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [prop]: event.target.value })
@@ -72,6 +76,12 @@ const RegisterPage = () => {
       });
 
       if (error) throw error
+
+      if (data && data.session) {
+        const { access_token, refresh_token } = data.session;
+        await supabaseClient.auth.setSession({access_token, refresh_token});
+        router.push('/');
+      }
     } catch (error: any) {
       console.error(error.error_description || error.message)
     }
@@ -132,5 +142,7 @@ const RegisterPage = () => {
     </Box>
   )
 }
+
+RegisterPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
 export default RegisterPage

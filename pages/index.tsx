@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 
-import { useSession } from '../utils/hooks/useSession'
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 
 const inter = Inter({ subsets: ['latin'] })

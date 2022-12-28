@@ -23,6 +23,7 @@ import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import BlankLayout from '../components/BlankLayout'
 
 
 interface State {
@@ -144,5 +145,7 @@ const LoginPage = () => {
     </Box>
   )
 }
+
+LoginPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
 export default LoginPage

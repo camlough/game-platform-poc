@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 import { Menu } from './Menu'
 
-export function Layout({ children }: PropsWithChildren) {
+const Layout = ({ children }: PropsWithChildren) => {
   return (
     <>
       <Head>
@@ -22,3 +22,5 @@ export function Layout({ children }: PropsWithChildren) {
     </>
   )
 }
+
+export default Layout;

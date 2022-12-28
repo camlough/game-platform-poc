@@ -1,15 +1,22 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
+import type { NextPage } from 'next'
 
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
 import { useState } from 'react'
 
+import UserLayout from '../components/UserLayout'
+
 import { ReactNode } from "react";
-import { Layout } from '../components/Layout';
+import { Layout } from '../components/UserLayout';
 // ** MUI Imports
 import { styled } from "@mui/material/styles";
 import Box, { BoxProps } from "@mui/material/Box";
+
+type ExtendedAppProps = AppProps & {
+  Component: NextPage
+}
 
 // Styled component for Blank Layout component
 // const BlankLayoutWrapper = styled(Box)<BoxProps>(({ theme }) => ({
@@ -33,19 +40,16 @@ import Box, { BoxProps } from "@mui/material/Box";
 //   },
 // }));
 
-export default function App({ Component, pageProps }: AppProps<{
-  initialSession: Session
-}>) {
+export default function App({ Component, pageProps }: ExtendedAppProps) {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient())
-
+  const getLayout = Component.getLayout ?? (page => <UserLayout>{page}</UserLayout>)
   return (
     <SessionContextProvider
       supabaseClient={supabaseClient}
       initialSession={pageProps.initialSession}
     >
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+
+      {getLayout( <Component {...pageProps} />)}
     </SessionContextProvider>
   )
 
