@@ -54,6 +54,10 @@ const LoginPage = () => {
     event.preventDefault()
   }
 
+  const handleLogin = () => {
+    console.log('handle login')
+  }
+
   return (
     <Box className='content-center'>
       <Card sx={{ zIndex: 1 }}>
@@ -97,7 +101,7 @@ const LoginPage = () => {
               size='large'
               variant='contained'
               sx={{ marginBottom: 7 }}
-              onClick={() => router.push('/')}
+              onClick={() => handleLogin()}
             >
               Login
             </Button>
