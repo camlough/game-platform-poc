@@ -2,10 +2,11 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 
 import { ReactNode } from "react";
+import { Layout } from '../components/Layout';
 // ** MUI Imports
 import { styled } from "@mui/material/styles";
 import Box, { BoxProps } from "@mui/material/Box";
-
+import { useSession } from '../utils/hooks/useSession'
 // Styled component for Blank Layout component
 const BlankLayoutWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   height: "100vh",
@@ -29,14 +30,17 @@ const BlankLayoutWrapper = styled(Box)<BoxProps>(({ theme }) => ({
 }));
 
 export default function App({ Component, pageProps }: AppProps) {
+  const session = useSession();
   return (
-    <BlankLayoutWrapper className="layout-wrapper">
-      <Box
-        className="app-content"
-        sx={{ minHeight: "100vh", overflowX: "hidden", position: "relative" }}
-      >
-        <Component {...pageProps} />
-      </Box>
-    </BlankLayoutWrapper>
+    <Layout session={session}>
+      <BlankLayoutWrapper className="layout-wrapper">
+        <Box
+          className="app-content"
+          sx={{ minHeight: "100vh", overflowX: "hidden", position: "relative" }}
+        >
+          <Component {...pageProps} />
+        </Box>
+      </BlankLayoutWrapper>
+    </Layout>
   );
 }

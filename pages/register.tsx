@@ -7,8 +7,6 @@ import Link from 'next/link'
 // ** MUI Components
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Divider from '@mui/material/Divider'
-import Checkbox from '@mui/material/Checkbox'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import InputLabel from '@mui/material/InputLabel'
@@ -16,18 +14,22 @@ import IconButton from '@mui/material/IconButton'
 import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
 import OutlinedInput from '@mui/material/OutlinedInput'
-import { styled, useTheme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import MuiCard, { CardProps } from '@mui/material/Card'
 import InputAdornment from '@mui/material/InputAdornment'
-import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
 
 // ** Icons Imports
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 
+// ** Local Imports
+import { supabase } from '../utils/supabaseClient'
+
 interface State {
-  password: string
-  showPassword: boolean
+  password: string;
+  username: string;
+  email: string;
+  showPassword: boolean;
 }
 
 // ** Styled Components
@@ -39,17 +41,39 @@ const RegisterPage = () => {
   // ** States
   const [values, setValues] = useState<State>({
     password: '',
+    username: '',
+    email: '',
     showPassword: false
   })
 
   const handleChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [prop]: event.target.value })
   }
+
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword })
   }
+
   const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
+  }
+  const handleRegister = async () => {
+    try {
+      const { email, password, username } = values;
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            username
+          }
+        }
+      });
+      console.log('data', data)
+      if (error) throw error
+    } catch (error: any) {
+      console.error(error.error_description || error.message)
+    }
   }
 
   return (
@@ -60,11 +84,11 @@ const RegisterPage = () => {
             <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5 }}>
               Adventure starts here 🚀
             </Typography>
-            <Typography variant='body2'>Make your app management easy and fun!</Typography>
+            <Typography variant='body2'>Create your account now</Typography>
           </Box>
           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-            <TextField autoFocus fullWidth id='username' label='Username' sx={{ marginBottom: 4 }} />
-            <TextField fullWidth type='email' label='Email' sx={{ marginBottom: 4 }} />
+            <TextField autoFocus fullWidth id='username' label='Username' sx={{ marginBottom: 4 }} onChange={handleChange('username')} />
+            <TextField fullWidth type='email' label='Email' sx={{ marginBottom: 4 }} onChange={handleChange('email')} />
             <FormControl fullWidth>
               <InputLabel htmlFor='auth-register-password'>Password</InputLabel>
               <OutlinedInput
@@ -88,7 +112,7 @@ const RegisterPage = () => {
               />
             </FormControl>
 
-            <Button fullWidth size='large' type='submit' variant='contained' sx={{ marginBottom: 7, marginTop: 4 }}>
+            <Button fullWidth size='large' type='submit' variant='contained' sx={{ marginBottom: 7, marginTop: 4 }} onClick={() => handleRegister()}>
               Sign up
             </Button>
             <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>

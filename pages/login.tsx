@@ -22,9 +22,13 @@ import InputAdornment from '@mui/material/InputAdornment'
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 
+// ** Local Imports
+import { supabase } from '../utils/supabaseClient';
+
 interface State {
-  password: string
-  showPassword: boolean
+  password: string;
+  email: string;
+  showPassword: boolean;
 }
 
 // ** Styled Components
@@ -36,6 +40,7 @@ const LoginPage = () => {
   // ** State
   const [values, setValues] = useState<State>({
     password: '',
+    email: '',
     showPassword: false
   })
 
@@ -54,8 +59,23 @@ const LoginPage = () => {
     event.preventDefault()
   }
 
-  const handleLogin = () => {
-    console.log('handle login')
+  const handleLogin = async () => {
+    try {
+      const { email, password } = values;
+      const { data, error} = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+      console.log('DATA', data);
+      if (error) throw error;
+      if (data && data.session) {
+        const { access_token, refresh_token } = data.session;
+        await supabase.auth.setSession({access_token, refresh_token});
+        router.push('/');
+      }
+    } catch(error: any) {
+      console.error(error.error_description || error.message)
+    }
   }
 
   return (
@@ -69,7 +89,7 @@ const LoginPage = () => {
             <Typography variant='body2'>Please sign-in to your account and start playing</Typography>
           </Box>
           <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-            <TextField autoFocus fullWidth id='email' label='Email' sx={{ marginBottom: 4 }} />
+            <TextField autoFocus fullWidth id='email' label='Email' sx={{ marginBottom: 4 }} onChange={handleChange('email')} />
             <FormControl fullWidth>
               <InputLabel htmlFor='auth-login-password'>Password</InputLabel>
               <OutlinedInput
