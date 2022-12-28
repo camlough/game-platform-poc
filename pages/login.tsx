@@ -22,9 +22,14 @@ import InputAdornment from '@mui/material/InputAdornment'
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import BlankLayout from '../components/BlankLayout'
+
+
 interface State {
-  password: string
-  showPassword: boolean
+  password: string;
+  email: string;
+  showPassword: boolean;
 }
 
 // ** Styled Components
@@ -36,8 +41,10 @@ const LoginPage = () => {
   // ** State
   const [values, setValues] = useState<State>({
     password: '',
+    email: '',
     showPassword: false
   })
+  const supabaseClient = useSupabaseClient()
 
   // ** Hook
   const router = useRouter()
@@ -54,6 +61,26 @@ const LoginPage = () => {
     event.preventDefault()
   }
 
+  const handleLogin = async () => {
+    try {
+      const { email, password } = values;
+      const { data, error} = await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) throw error;
+
+      if (data && data.session) {
+        const { access_token, refresh_token } = data.session;
+        await supabaseClient.auth.setSession({access_token, refresh_token});
+        router.push('/');
+      }
+    } catch(error: any) {
+      console.error(error.error_description || error.message)
+    }
+  }
+
   return (
     <Box className='content-center'>
       <Card sx={{ zIndex: 1 }}>
@@ -64,8 +91,8 @@ const LoginPage = () => {
             </Typography>
             <Typography variant='body2'>Please sign-in to your account and start playing</Typography>
           </Box>
-          <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-            <TextField autoFocus fullWidth id='email' label='Email' sx={{ marginBottom: 4 }} />
+          <form noValidate autoComplete='off' onSubmit={() => handleLogin()}>
+            <TextField autoFocus fullWidth id='email' label='Email' sx={{ marginBottom: 4 }} onChange={handleChange('email')} />
             <FormControl fullWidth>
               <InputLabel htmlFor='auth-login-password'>Password</InputLabel>
               <OutlinedInput
@@ -97,7 +124,7 @@ const LoginPage = () => {
               size='large'
               variant='contained'
               sx={{ marginBottom: 7 }}
-              onClick={() => router.push('/')}
+              onClick={() => handleLogin()}
             >
               Login
             </Button>
@@ -118,5 +145,7 @@ const LoginPage = () => {
     </Box>
   )
 }
+
+LoginPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
 export default LoginPage

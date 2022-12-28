@@ -1,42 +1,26 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
+import type { NextPage } from 'next'
 
-import { ReactNode } from "react";
-// ** MUI Imports
-import { styled } from "@mui/material/styles";
-import Box, { BoxProps } from "@mui/material/Box";
+import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
+import { useState } from 'react'
 
-// Styled component for Blank Layout component
-const BlankLayoutWrapper = styled(Box)<BoxProps>(({ theme }) => ({
-  height: "100vh",
+import UserLayout from '../components/UserLayout'
 
-  // For V1 Blank layout pages
-  "& .content-center": {
-    display: "flex",
-    minHeight: "100vh",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: theme.spacing(5),
-  },
+type ExtendedAppProps = AppProps & {
+  Component: NextPage
+}
 
-  // For V2 Blank layout pages
-  "& .content-right": {
-    display: "flex",
-    minHeight: "100vh",
-    overflowX: "hidden",
-    position: "relative",
-  },
-}));
-
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: ExtendedAppProps) {
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient())
+  const getLayout = Component.getLayout ?? (page => <UserLayout>{page}</UserLayout>)
   return (
-    <BlankLayoutWrapper className="layout-wrapper">
-      <Box
-        className="app-content"
-        sx={{ minHeight: "100vh", overflowX: "hidden", position: "relative" }}
-      >
-        <Component {...pageProps} />
-      </Box>
-    </BlankLayoutWrapper>
-  );
+    <SessionContextProvider
+      supabaseClient={supabaseClient}
+      initialSession={pageProps.initialSession}
+    >
+      {getLayout( <Component {...pageProps} />)}
+    </SessionContextProvider>
+  )
 }
