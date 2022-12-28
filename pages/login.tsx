@@ -4,6 +4,7 @@ import { ChangeEvent, MouseEvent, ReactNode, useState } from 'react'
 // ** Next Imports
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 // ** MUI Components
 import Box from '@mui/material/Box'
@@ -85,6 +86,14 @@ const LoginPage = () => {
     <Box className='content-center'>
       <Card sx={{ zIndex: 1 }}>
         <CardContent sx={{ padding: theme => `${theme.spacing(12, 9, 7)} !important` }}>
+          <Box sx={{ mb:4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <IconButton
+              color='inherit'
+              onClick={() => router.push('/')}
+              >
+                <Image width={40} height={40} alt="logo" src="/images/logos/google.png" />
+            </IconButton>
+          </Box>
           <Box sx={{ mb: 6 }}>
             <Typography variant='h5' sx={{ fontWeight: 600, marginBottom: 1.5 }}>
               Welcome 👋🏻

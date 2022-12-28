@@ -1,26 +1,71 @@
-import { AuthSession } from '@supabase/supabase-js'
-import Head from 'next/head'
-import Link from 'next/link'
-import { PropsWithChildren } from 'react'
-import { Menu } from './Menu'
+// ** React Imports
+import { useState, ReactNode } from 'react'
 
-const Layout = ({ children }: PropsWithChildren) => {
+// ** MUI Imports
+import Fab from '@mui/material/Fab'
+import { styled } from '@mui/material/styles'
+import Box, { BoxProps } from '@mui/material/Box'
+
+// ** Components
+import AppBar from './AppBar'
+
+const VerticalLayoutWrapper = styled('div')({
+  height: '100%',
+  display: 'flex'
+})
+
+const MainContentWrapper = styled(Box)<BoxProps>({
+  flexGrow: 1,
+  minWidth: 0,
+  display: 'flex',
+  minHeight: '100vh',
+  flexDirection: 'column'
+})
+
+const ContentWrapper = styled('main')(({ theme }) => ({
+  flexGrow: 1,
+  width: '100%',
+  padding: theme.spacing(6),
+  transition: 'padding .25s ease-in-out',
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4)
+  }
+}))
+
+interface Props {
+  children: ReactNode;
+}
+
+const UserLayout = (props: Props) => {
+  // ** Props
+  const { children } = props
+  
+  // ** Vars
+  const contentWidth = 'boxed';
+
+
   return (
     <>
-      <Head>
-        <title>Game Platform POC</title>
-      </Head>
-      <div>
-        <header>
-          <Menu />
-        </header>
-        <main>{children}</main>
-        <footer>
-          Powered by Next.js &amp; Supabase
-        </footer>
-      </div>
+      <VerticalLayoutWrapper className='layout-wrapper'>
+        <MainContentWrapper className='layout-content-wrapper'>
+          <AppBar />
+          <ContentWrapper
+            className='layout-page-content'
+            sx={{
+              ...(contentWidth === 'boxed' && {
+                mx: 'auto',
+                '@media (min-width:1440px)': { maxWidth: 1440 },
+                '@media (min-width:1200px)': { maxWidth: '100%' }
+              })
+            }}
+          >
+            {children}
+          </ContentWrapper>
+        </MainContentWrapper>
+      </VerticalLayoutWrapper>
     </>
   )
 }
 
-export default Layout;
+export default UserLayout
