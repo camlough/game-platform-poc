@@ -4,11 +4,7 @@ import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 import { Menu } from './Menu'
 
-export interface Props {
-  session: AuthSession | null
-}
-
-export function Layout({ session, children }: PropsWithChildren<Props>) {
+export function Layout({ children }: PropsWithChildren) {
   return (
     <>
       <Head>
@@ -16,7 +12,7 @@ export function Layout({ session, children }: PropsWithChildren<Props>) {
       </Head>
       <div>
         <header>
-          <Menu session={session} />
+          <Menu />
         </header>
         <main>{children}</main>
         <footer>

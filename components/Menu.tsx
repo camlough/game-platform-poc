@@ -1,22 +1,22 @@
 import { AuthSession } from '@supabase/supabase-js'
 import Link from 'next/link'
 import Router from 'next/router'
-import { supabase } from '../utils/supabaseClient'
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 
-export interface Props {
-  session: AuthSession | null
-}
 
-export function Menu({ session }: Props) {
-  return (
+export function Menu() {
+  const user = useUser();
+  const supabaseClient = useSupabaseClient();
+  console.log('user', user)
+    return (
     <ul className="flex space-x-4">
-      {session ? (
+      {user ? (
         <>
           <li>
             <button
               className="btn-link"
               onClick={() => {
-                supabase.auth.signOut()
+                supabaseClient.auth.signOut()
                 Router.push('/')
               }}
             >

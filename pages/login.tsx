@@ -22,8 +22,8 @@ import InputAdornment from '@mui/material/InputAdornment'
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 
-// ** Local Imports
-import { supabase } from '../utils/supabaseClient';
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+
 
 interface State {
   password: string;
@@ -43,6 +43,7 @@ const LoginPage = () => {
     email: '',
     showPassword: false
   })
+  const supabaseClient = useSupabaseClient()
 
   // ** Hook
   const router = useRouter()
@@ -62,15 +63,16 @@ const LoginPage = () => {
   const handleLogin = async () => {
     try {
       const { email, password } = values;
-      const { data, error} = await supabase.auth.signInWithPassword({
+      const { data, error} = await supabaseClient.auth.signInWithPassword({
         email,
         password
       });
-      console.log('DATA', data);
+
       if (error) throw error;
+
       if (data && data.session) {
         const { access_token, refresh_token } = data.session;
-        await supabase.auth.setSession({access_token, refresh_token});
+        await supabaseClient.auth.setSession({access_token, refresh_token});
         router.push('/');
       }
     } catch(error: any) {
@@ -88,7 +90,7 @@ const LoginPage = () => {
             </Typography>
             <Typography variant='body2'>Please sign-in to your account and start playing</Typography>
           </Box>
-          <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
+          <form noValidate autoComplete='off' onSubmit={() => handleLogin()}>
             <TextField autoFocus fullWidth id='email' label='Email' sx={{ marginBottom: 4 }} onChange={handleChange('email')} />
             <FormControl fullWidth>
               <InputLabel htmlFor='auth-login-password'>Password</InputLabel>

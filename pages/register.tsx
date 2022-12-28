@@ -22,8 +22,7 @@ import InputAdornment from '@mui/material/InputAdornment'
 import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 
-// ** Local Imports
-import { supabase } from '../utils/supabaseClient'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
 interface State {
   password: string;
@@ -46,6 +45,8 @@ const RegisterPage = () => {
     showPassword: false
   })
 
+  const supabaseClient = useSupabaseClient()
+
   const handleChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [prop]: event.target.value })
   }
@@ -60,7 +61,7 @@ const RegisterPage = () => {
   const handleRegister = async () => {
     try {
       const { email, password, username } = values;
-      const { data, error } = await supabase.auth.signUp({
+      const { data, error } = await supabaseClient.auth.signUp({
         email,
         password,
         options: {
@@ -69,7 +70,7 @@ const RegisterPage = () => {
           }
         }
       });
-      console.log('data', data)
+
       if (error) throw error
     } catch (error: any) {
       console.error(error.error_description || error.message)
