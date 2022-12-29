@@ -28,27 +28,15 @@ const gameData = [
   {
     gameType: 'tic_tac_toe',
     title: 'Tic Tac Toe',
-    players: ['camlough', 'johndoe'],
+    players: ['johndoe'],
     imagePath: '/images/misc/tic-tac-toe.png'
   },
   {
     gameType: 'chess',
     title: 'Chess',
-    players: ['billybob',  'BotOne'],
+    players: ['billybob'],
     imagePath: '/images/misc/chess.png'
-  },
-  {
-    gameType: 'chess',
-    title: 'Chess',
-    players: ['susan',  'BotTwo'],
-    imagePath: '/images/misc/chess.png'
-  },
-  {
-    gameType: 'tic_tac_toe',
-    title: 'Tic Tac Toe',
-    players: ['kristin',  'danny'],
-    imagePath: '/images/misc/tic-tac-toe.png'
-  },
+  }
 ];
 
 const WaitingRoom = () => {
@@ -156,7 +144,7 @@ const WaitingRoom = () => {
                       letterSpacing: "0.22px",
                     }}
                   >
-                    <Link href="/game-in-progress">Watch Live Game</Link>
+                    <Link href="/game-in-progress">Join Game</Link>
                   </Typography>
                 </Box>
               </Box>

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 // ** MUI Imports
 import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
@@ -5,7 +6,9 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import { styled } from "@mui/material/styles";
 
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useUser } from "@supabase/auth-helpers-react";
+
+import NewGameModal from './NewGameModal';
 
 // Styled component for the triangle shaped background image
 const TriangleImg = styled("img")({
@@ -24,24 +27,29 @@ const TrophyImg = styled("img")({
 });
 
 const userData = {
-    gamesWon: 9,
-    gamesPlayed: 34
-}
+  gamesWon: 9,
+  gamesPlayed: 34,
+};
 
 const Trophy = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const handlOpenModal = () => setModalOpen(true);
+  const handleCloseModal = () => setModalOpen(false);
   const user = useUser();
   return (
     <Card sx={{ position: "relative" }}>
       <CardContent>
-        <Typography variant="h6">Congratulations {user?.user_metadata.username}! 🥳</Typography>
+        <Typography variant="h6">
+          Congratulations {user?.user_metadata.username}! 🥳
+        </Typography>
         <Typography variant="body2" sx={{ letterSpacing: "0.25px" }}>
           You&apos;re on a win streak
         </Typography>
         <Typography variant="h5" sx={{ my: 4, color: "primary.main" }}>
           {userData.gamesWon} wins
         </Typography>
-        <Button size="small" variant="contained">
-          View Games
+        <Button size="small" variant="contained" onClick={handlOpenModal}>
+          Play a new game
         </Button>
         <TriangleImg
           alt="triangle background"
@@ -49,6 +57,7 @@ const Trophy = () => {
         />
         <TrophyImg alt="trophy" src="/images/misc/trophy.png" />
       </CardContent>
+      <NewGameModal isModalOpen={isModalOpen} handleCloseModal={handleCloseModal} />
     </Card>
   );
 };

@@ -31,10 +31,10 @@ const renderAuthenticatedView = () => {
         <OverviewStats />
       </Grid>
       <Grid item xs={12} md={12}>
-        <ActiveGames />
+        <WaitingRoom />
       </Grid>
       <Grid item xs={12} md={12}>
-        <WaitingRoom />
+        <ActiveGames />
       </Grid>
     </Grid>
   )
