@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -29,14 +30,30 @@ interface Props {
     isModalOpen: boolean;
     handleCloseModal: () => void
 }
+interface State {
+    opponentType: 'human' | 'bot';
+    gameType: string;
+}
 
 const NewGameModal = ({isModalOpen, handleCloseModal}: Props) => {
-  const [game, setGame] = useState('tic_tac_toe');
+  const [values, setValues] = useState<State>({
+    opponentType: 'human',
+    gameType: 'tic_tac_toe'
+  })
 
-  const handleGameChange = (event: SelectChangeEvent) => {
-    setGame(event.target.value);
+  const router = useRouter();
+
+  const handleChange = (prop: keyof State) => (event: SelectChangeEvent) => {
+    setValues({ ...values, [prop]: event.target.value })
   };
 
+  const handleStartGame = () => {
+    if (values.opponentType === 'human') {
+        router.push('/waiting-room/1234')
+    } else {
+        router.push(`/play-game/${values.gameType}/1234`);
+    }
+  }
 
   return (
     <Modal
@@ -66,9 +83,9 @@ const NewGameModal = ({isModalOpen, handleCloseModal}: Props) => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={game}
+              value={values.gameType}
               label="Game"
-              onChange={handleGameChange}
+              onChange={handleChange('gameType')}
             >
               <MenuItem value="tic_tac_toe">Tic Tac Toe</MenuItem>
               <MenuItem value="chess">Chess</MenuItem>
@@ -78,15 +95,16 @@ const NewGameModal = ({isModalOpen, handleCloseModal}: Props) => {
             <FormLabel id="demo-radio-buttons-group-label">Opponent</FormLabel>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="female"
+              defaultValue="human"
               name="radio-buttons-group"
+              onChange={handleChange('opponentType')}
             >
               <FormControlLabel
-                value="female"
+                value="human"
                 control={<Radio />}
                 label="Human"
               />
-              <FormControlLabel value="male" control={<Radio />} label="Bot" />
+              <FormControlLabel value="bot" control={<Radio />} label="Bot" />
             </RadioGroup>
           </FormControl>
         </form>
@@ -96,7 +114,7 @@ const NewGameModal = ({isModalOpen, handleCloseModal}: Props) => {
             variant='contained'
             type='submit'
             sx={{ mt: 2 }}
-            // onClick={(e) => handleLogin(e)}
+            onClick={() => handleStartGame()}
         >
             Start Game
         </Button>
