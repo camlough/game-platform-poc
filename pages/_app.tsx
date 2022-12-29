@@ -6,7 +6,7 @@ import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
 import { useState } from 'react'
 
-import UserLayout from '../components/UserLayout'
+import UserLayout from '../components/layout/UserLayout'
 
 type ExtendedAppProps = AppProps & {
   Component: NextPage
