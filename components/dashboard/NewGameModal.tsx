@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -33,9 +34,15 @@ interface Props {
 const NewGameModal = ({isModalOpen, handleCloseModal}: Props) => {
   const [game, setGame] = useState('tic_tac_toe');
 
+  const router = useRouter();
+
   const handleGameChange = (event: SelectChangeEvent) => {
     setGame(event.target.value);
   };
+
+  const handleStartGame = () => {
+    router.push('/waiting-room/1234')
+  }
 
 
   return (
@@ -96,7 +103,7 @@ const NewGameModal = ({isModalOpen, handleCloseModal}: Props) => {
             variant='contained'
             type='submit'
             sx={{ mt: 2 }}
-            // onClick={(e) => handleLogin(e)}
+            onClick={() => handleStartGame()}
         >
             Start Game
         </Button>
