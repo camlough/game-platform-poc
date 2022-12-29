@@ -26,7 +26,7 @@ interface DataType {
 
 const gameData = [
   {
-    gameType: 'tic_tac_toe',
+    gameType: 'tic-tac-toe',
     title: 'Tic Tac Toe',
     players: ['camlough', 'johndoe'],
     imagePath: '/images/misc/tic-tac-toe.png'
@@ -44,7 +44,7 @@ const gameData = [
     imagePath: '/images/misc/chess.png'
   },
   {
-    gameType: 'tic_tac_toe',
+    gameType: 'tic-tac-toe',
     title: 'Tic Tac Toe',
     players: ['kristin',  'danny'],
     imagePath: '/images/misc/tic-tac-toe.png'

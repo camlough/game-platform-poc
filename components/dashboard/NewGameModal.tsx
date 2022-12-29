@@ -38,7 +38,7 @@ interface State {
 const NewGameModal = ({isModalOpen, handleCloseModal}: Props) => {
   const [values, setValues] = useState<State>({
     opponentType: 'human',
-    gameType: 'tic_tac_toe'
+    gameType: 'tic-tac-toe'
   })
 
   const router = useRouter();
@@ -87,7 +87,7 @@ const NewGameModal = ({isModalOpen, handleCloseModal}: Props) => {
               label="Game"
               onChange={handleChange('gameType')}
             >
-              <MenuItem value="tic_tac_toe">Tic Tac Toe</MenuItem>
+              <MenuItem value="tic-tac-toe">Tic Tac Toe</MenuItem>
               <MenuItem value="chess">Chess</MenuItem>
             </Select>
           </FormControl>

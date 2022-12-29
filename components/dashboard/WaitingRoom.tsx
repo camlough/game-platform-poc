@@ -26,7 +26,7 @@ interface DataType {
 
 const gameData = [
   {
-    gameType: 'tic_tac_toe',
+    gameType: 'tic-tac-toe',
     title: 'Tic Tac Toe',
     players: ['johndoe'],
     imagePath: '/images/misc/tic-tac-toe.png'
