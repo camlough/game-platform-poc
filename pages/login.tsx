@@ -1,5 +1,5 @@
 // ** React Imports
-import { ChangeEvent, MouseEvent, ReactNode, useState } from 'react'
+import { ChangeEvent, SyntheticEvent, MouseEvent, ReactNode, useState } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -24,7 +24,7 @@ import EyeOutline from 'mdi-material-ui/EyeOutline'
 import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
 
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
-import BlankLayout from '../components/BlankLayout'
+import BlankLayout from '../components/layout/BlankLayout'
 
 
 interface State {
@@ -62,13 +62,15 @@ const LoginPage = () => {
     event.preventDefault()
   }
 
-  const handleLogin = async () => {
+  const handleLogin = async (event: SyntheticEvent) => {
+    event.preventDefault();
     try {
       const { email, password } = values;
       const { data, error} = await supabaseClient.auth.signInWithPassword({
         email,
         password
       });
+      console.log('hanle login')
 
       if (error) throw error;
 
@@ -100,7 +102,7 @@ const LoginPage = () => {
             </Typography>
             <Typography variant='body2'>Please sign-in to your account and start playing</Typography>
           </Box>
-          <form noValidate autoComplete='off' onSubmit={() => handleLogin()}>
+          <form noValidate autoComplete='off' onSubmit={(e) => handleLogin(e)}>
             <TextField autoFocus fullWidth id='email' label='Email' sx={{ marginBottom: 4 }} onChange={handleChange('email')} />
             <FormControl fullWidth>
               <InputLabel htmlFor='auth-login-password'>Password</InputLabel>
@@ -132,8 +134,9 @@ const LoginPage = () => {
               fullWidth
               size='large'
               variant='contained'
+              type='submit'
               sx={{ marginBottom: 7 }}
-              onClick={() => handleLogin()}
+              onClick={(e) => handleLogin(e)}
             >
               Login
             </Button>

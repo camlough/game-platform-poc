@@ -8,13 +8,13 @@ import { useRouter } from 'next/router';
 // ** MUI Imports
 import { styled } from "@mui/material/styles";
 import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 import MuiAppBar, { AppBarProps } from "@mui/material/AppBar";
 import IconButton from '@mui/material/IconButton'
 import MuiToolbar, { ToolbarProps } from "@mui/material/Toolbar";
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useUser } from "@supabase/auth-helpers-react";
 
 import UserDropdown from "./UserDropdown";
-import { Router } from "mdi-material-ui";
 
 const AppBar = styled(MuiAppBar)<AppBarProps>(({ theme }) => ({
   transition: "none",
@@ -90,7 +90,7 @@ const LayoutAppBar = () => {
             className="actions-right"
             sx={{ display: "flex", alignItems: "center" }}
           >
-            {user ? <UserDropdown /> : (<Link href="/login">Login</Link>)}
+            {user ? <UserDropdown /> : (<Typography><Link href="/login">Login</Link></Typography>)}
           </Box>
         </Box>
       </Toolbar>

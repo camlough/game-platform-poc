@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles'
 import Box, { BoxProps } from '@mui/material/Box'
 
 // ** Components
-import AppBar from './AppBar'
+import AppBar from '../header/AppBar'
 
 const VerticalLayoutWrapper = styled('div')({
   height: '100%',
@@ -53,8 +53,8 @@ const UserLayout = (props: Props) => {
           <ContentWrapper
             className='layout-page-content'
             sx={{
+              mx: 'auto',
               ...(contentWidth === 'boxed' && {
-                mx: 'auto',
                 '@media (min-width:1440px)': { maxWidth: 1440 },
                 '@media (min-width:1200px)': { maxWidth: '100%' }
               })

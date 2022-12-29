@@ -29,7 +29,7 @@ interface DataType {
 const salesData: DataType[] = [
   {
     stats: '788',
-    title: 'Total Games Played',
+    title: 'Games Played',
     color: 'primary',
     icon: <TrendingUp sx={{ fontSize: '1.75rem' }} />
   },
@@ -83,14 +83,18 @@ const StatisticsCard = () => {
   return (
     <Card>
       <CardHeader
-        title='Game Stats'
-
+        title='Game Platform Stats'
+        subheader={
+            <Typography variant='body2'>
+                Some stats about the platform 😎
+            </Typography>
+          }
         titleTypographyProps={{
           sx: {
             mb: 2.5,
             lineHeight: '2rem !important',
             letterSpacing: '0.15px !important'
-          }
+          },
         }}
       />
       <CardContent sx={{ pt: theme => `${theme.spacing(3)} !important` }}>

@@ -24,7 +24,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import EyeOutline from "mdi-material-ui/EyeOutline";
 import EyeOffOutline from "mdi-material-ui/EyeOffOutline";
 
-import BlankLayout from "../components/BlankLayout";
+import BlankLayout from "../components/layout/BlankLayout";
 
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 

@@ -51,7 +51,7 @@ const gameData = [
   },
 ];
 
-const ActiveGames = () => {
+const WaitingRoom = () => {
   const [activeGames, setActiveGames] = useState(gameData);
 
   const handleSearchChange = (
@@ -66,10 +66,10 @@ const ActiveGames = () => {
   return (
     <Card>
       <CardHeader
-        title="Active Games"
+        title="Waiting Lounge"
         subheader={
             <Typography variant='body2'>
-                Games that are currently in play
+                Games that have been initiated by another player, but still waiting on an opponent
             </Typography>
           }
         titleTypographyProps={{
@@ -156,7 +156,7 @@ const ActiveGames = () => {
                       letterSpacing: "0.22px",
                     }}
                   >
-                    <Link href="/game-in-progress">Spectate</Link>
+                    <Link href="/game-in-progress">Watch Live Game</Link>
                   </Typography>
                 </Box>
               </Box>
@@ -168,4 +168,4 @@ const ActiveGames = () => {
   );
 };
 
-export default ActiveGames;
+export default WaitingRoom;
