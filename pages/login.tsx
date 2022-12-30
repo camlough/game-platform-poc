@@ -92,7 +92,7 @@ const LoginPage = () => {
               color='inherit'
               onClick={() => router.push('/')}
               >
-                <Image width={40} height={40} alt="logo" src="/images/logos/google.png" />
+                <Image width={60} height={60} alt="logo" src="/images/logos/saasy-games-1.png" />
             </IconButton>
           </Box>
           <Box sx={{ mb: 6 }}>

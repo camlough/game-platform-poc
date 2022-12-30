@@ -83,7 +83,7 @@ const LayoutAppBar = () => {
             onClick={() => router.push('/')}
             sx={{ ml: -2.75,  mr: 3.5 }}
           >
-            <Image width={40} height={40} alt="logo" src="/images/logos/google.png" />
+            <Image width={60} height={60} alt="logo" src="/images/logos/saasy-games-1.png" />
           </IconButton>
           </Box>
           <Box
