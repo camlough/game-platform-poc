@@ -12,6 +12,9 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
+import { nanoid } from "nanoid";
+
+import { createReplicacheSpace } from '../../pages/api/replicache/create-space';
 
 const modalStyle = {
   position: "absolute" as "absolute",
@@ -47,9 +50,14 @@ const NewGameModal = ({isModalOpen, handleCloseModal}: Props) => {
     setValues({ ...values, [prop]: event.target.value })
   };
 
-  const handleStartGame = () => {
+  const handleStartGame = async () => {
+    const gameId = nanoid(6);
     if (values.opponentType === 'human') {
-        router.push('/waiting-room/1234')
+        // generate replicache space
+        const path = `/waiting-room/${gameId}`;
+        const space = await createReplicacheSpace(path);
+        console.log("SPACE", space)
+        router.push(path)
     } else {
         router.push(`/play-game/${values.gameType}/1234`);
     }

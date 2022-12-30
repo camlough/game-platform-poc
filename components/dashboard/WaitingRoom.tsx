@@ -16,6 +16,7 @@ import CardContent from "@mui/material/CardContent";
 
 // ** Icons Imports
 import Magnify from "mdi-material-ui/Magnify";
+import { GetServerSideProps } from "next";
 
 interface DataType {
     title: string;
@@ -155,5 +156,14 @@ const WaitingRoom = () => {
     </Card>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const { params } = context;
+    const { id } = params as {id: string};
+    console.log('context', context)
+    return {
+        props: {}
+    };
+}
 
 export default WaitingRoom;

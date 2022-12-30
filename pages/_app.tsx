@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }: ExtendedAppProps) {
       supabaseClient={supabaseClient}
       initialSession={pageProps.initialSession}
     >
-      {getLayout( <Component {...pageProps} />)}
+      {getLayout(<Component {...pageProps} />)}
     </SessionContextProvider>
   )
 }
