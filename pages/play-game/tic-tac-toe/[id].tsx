@@ -44,6 +44,7 @@ const TicTacToeGame = ({ gameId }: { gameId: string }) => {
       justifyContent="center"
       alignItems="center"
       direction="column"
+      sx={{ mt: 10 }}
     >
       <Grid item>
         <TicTacToe

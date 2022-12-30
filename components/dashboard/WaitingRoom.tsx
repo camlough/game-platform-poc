@@ -14,6 +14,8 @@ import TextField from "@mui/material/TextField";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 
+import { nanoid } from "nanoid";
+
 // ** Icons Imports
 import Magnify from "mdi-material-ui/Magnify";
 
@@ -22,6 +24,7 @@ interface DataType {
   gameType: string;
   players: string[];
   imagePath: string;
+  id: string;
 }
 
 const gameData = [
@@ -30,12 +33,14 @@ const gameData = [
     title: "Tic Tac Toe",
     players: ["johndoe"],
     imagePath: "/images/misc/tic-tac-toe.png",
+    id: nanoid(6),
   },
   {
     gameType: "chess",
     title: "Chess",
     players: ["billybob"],
     imagePath: "/images/misc/chess.png",
+    id: nanoid(6),
   },
 ];
 
@@ -145,7 +150,9 @@ const WaitingRoom = () => {
                       letterSpacing: "0.22px",
                     }}
                   >
-                    <Link href="/game-in-progress">Join Game</Link>
+                    <Link href={`/play-game/${item.gameType}/${item.id}`}>
+                      Join Game
+                    </Link>
                   </Typography>
                 </Box>
               </Box>
