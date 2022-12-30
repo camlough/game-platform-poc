@@ -11,10 +11,12 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
 // ** Icons Imports
-import TrendingUp from 'mdi-material-ui/TrendingUp'
-import TimerSandEmpty from 'mdi-material-ui/TimerSandEmpty'
-import AlarmCheck from 'mdi-material-ui/AlarmCheck'
-import GamepadSquare from 'mdi-material-ui/GamepadSquare'
+import Numeric from 'mdi-material-ui/Numeric'
+import TrophyVariantOutline from 'mdi-material-ui/TrophyVariantOutline'
+import EmoticonSadOutline from 'mdi-material-ui/EmoticonSadOutline'
+import HandshakeOutline from 'mdi-material-ui/HandshakeOutline'
+
+import { useProfile } from "../../utils/hooks/useProfile";
 
 // ** Types
 type ThemeColor = 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success'
@@ -24,37 +26,42 @@ interface DataType {
   title: string
   color: ThemeColor
   icon: ReactElement
+  key: string
 }
 
-const salesData: DataType[] = [
+const personalStatsData: DataType[] = [
   {
     stats: '788',
     title: 'Games Played',
+    key: 'countTotal',
     color: 'primary',
-    icon: <TrendingUp sx={{ fontSize: '1.75rem' }} />
+    icon: <Numeric sx={{ fontSize: '1.75rem' }} />
   },
   {
     stats: '4',
-    title: 'Active Games',
+    title: 'Games Won',
+    key: 'countWon',
     color: 'success',
-    icon: <GamepadSquare sx={{ fontSize: '1.75rem' }} />
+    icon: <TrophyVariantOutline sx={{ fontSize: '1.75rem' }} />
   },
   {
     stats: '2',
-    color: 'warning',
-    title: 'Waiting Games',
-    icon: <TimerSandEmpty sx={{ fontSize: '1.75rem' }} />
+    color: 'error',
+    key: 'countLost',
+    title: 'Games Lost',
+    icon: <EmoticonSadOutline sx={{ fontSize: '1.75rem' }} />
   },
   {
     stats: '568',
     color: 'info',
-    title: 'Hours Played',
-    icon: <AlarmCheck sx={{ fontSize: '1.75rem' }} />
+    key: 'countDraw',
+    title: 'Games Tied',
+    icon: <HandshakeOutline sx={{ fontSize: '1.75rem' }} />
   }
 ]
 
-const renderStats = () => {
-  return salesData.map((item: DataType, index: number) => (
+const renderStats = (profile: any) => {
+  return personalStatsData.map((item: DataType, index: number) => (
     <Grid item xs={12} sm={3} key={index}>
       <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
         <Avatar
@@ -72,21 +79,23 @@ const renderStats = () => {
         </Avatar>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Typography variant='caption'>{item.title}</Typography>
-          <Typography variant='h6'>{item.stats}</Typography>
+          <Typography variant='h6'>{profile ? profile[item.key] : 0}</Typography>
         </Box>
       </Box>
     </Grid>
   ))
 }
 
-const StatisticsCard = () => {
+const PersonalStats = () => {
+  const { profile } = useProfile();
+  console.log(profile)
   return (
     <Card>
       <CardHeader
-        title='Overall Stats'
+        title='Personal Stats'
         subheader={
             <Typography variant='body2' sx={{mb: 2}}>
-                Some stats about the platform 😎
+                Your personal stats 🏆
             </Typography>
           }
         titleTypographyProps={{
@@ -99,11 +108,11 @@ const StatisticsCard = () => {
       />
       <CardContent sx={{ pt: theme => `${theme.spacing(3)} !important` }}>
         <Grid container spacing={[5, 0]}>
-          {renderStats()}
+          {renderStats(profile)}
         </Grid>
       </CardContent>
     </Card>
   )
 }
 
-export default StatisticsCard
+export default PersonalStats;

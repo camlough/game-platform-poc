@@ -7,6 +7,7 @@ import Trophy from '../components/dashboard/Trophy'
 import OverviewStats from '../components/dashboard/OverviewStats'
 import ActiveGames from '../components/dashboard/ActiveGames'
 import WaitingRoom from '../components/dashboard/WaitingRoom'
+import PersonalStats from '../components/dashboard/PersonalStats'
 
 const renderUnauthenticatedView = () => {
   return (
@@ -28,6 +29,9 @@ const renderAuthenticatedView = () => {
         <Trophy />
       </Grid>
       <Grid item xs={12} md={8}>
+        <PersonalStats />
+      </Grid>
+      <Grid item xs={12} md={12}>
         <OverviewStats />
       </Grid>
       <Grid item xs={12} md={12}>
