@@ -57,7 +57,6 @@ const ActiveGames = () => {
   const handleSearchChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    console.log(event.target.value);
     const filteredGames = gameData.filter((game) => {
         return game.players.some(player => player.toLowerCase().includes(event.target.value));
     });

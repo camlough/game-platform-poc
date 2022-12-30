@@ -50,7 +50,6 @@ const UserDropdown = () => {
     setAnchorEl(null);
   };
 
-  console.log("user", user);
   return (
     <Fragment>
       <Badge

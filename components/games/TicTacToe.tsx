@@ -1,10 +1,11 @@
+import { Button, Typography } from "@mui/material";
 import styles from "/styles/TicTacToe.module.css";
 import { useEffect, useState } from "react";
 
 const players = {
   CPU: {
     SYM: "O",
-    NAME: "CPU",
+    NAME: "Bot",
   },
   HUMAN: {
     SYM: "X",
@@ -19,9 +20,17 @@ function sleep(milliseconds: number) {
     currentDate = Date.now();
   } while (currentDate - date < milliseconds);
 }
+interface indexObject {
+  arrayIndex: number;
+  index: number;
+}
 
-export default function TicTacToe() {
-  // const [board, setBoard] = useState(Array(9).fill(""));
+interface Props {
+    setGameResults: (result: string) => void;
+    playAgain: () => void;
+}
+
+export default function TicTacToe({setGameResults, playAgain}: Props) {
   const [board, setBoard] = useState([
     ["", "", ""],
     ["", "", ""],
@@ -29,6 +38,19 @@ export default function TicTacToe() {
   ]);
   const [isCPUNext, setIsCPUNext] = useState(false);
   const [winner, setWinner] = useState<string | null>(null);
+
+  const finalizeGame = async (player: string | null) => {
+    setWinner(player);
+    if (player) {
+        if (player === players?.HUMAN?.NAME) {
+            await setGameResults('won');
+        } else if (player === 'draw') {
+            await setGameResults('draw');
+        } else {
+            await setGameResults('lost')
+        }
+    }
+  }
 
   function playFn(arrayIndex: number, index: number) {
     if (isCPUNext) return;
@@ -48,7 +70,7 @@ export default function TicTacToe() {
 
   function cPUPlay() {
     if (winner) return;
-    sleep(1000);
+    sleep(500);
 
     const cPUMove = getCPUTurn();
 
@@ -60,7 +82,7 @@ export default function TicTacToe() {
   }
 
   function getCPUTurn() {
-    const emptyIndexes = [];
+    const emptyIndexes: indexObject[] = [];
     board.forEach((row, arrayIndex) => {
       row.forEach((cell, index) => {
         if (cell === "") {
@@ -77,10 +99,10 @@ export default function TicTacToe() {
     for (let index = 0; index < board.length; index++) {
       const row = board[index];
       if (row.every((cell) => cell === players?.CPU?.SYM)) {
-        setWinner(players?.CPU?.NAME);
+        finalizeGame(players?.CPU?.NAME);
         return;
       } else if (row.every((cell) => cell === players?.HUMAN?.SYM)) {
-        setWinner(players?.HUMAN?.NAME);
+        finalizeGame(players?.HUMAN?.NAME);
         return;
       }
     }
@@ -89,10 +111,10 @@ export default function TicTacToe() {
     for (let i = 0; i < 3; i++) {
       const column = board.map((row) => row[i]);
       if (column.every((cell) => cell === players?.CPU?.SYM)) {
-        setWinner(players?.CPU?.NAME);
+        finalizeGame(players?.CPU?.NAME);
         return;
       } else if (column.every((cell) => cell === players?.HUMAN?.SYM)) {
-        setWinner(players?.HUMAN?.NAME);
+        finalizeGame(players?.HUMAN?.NAME);
         return;
       }
     }
@@ -101,22 +123,22 @@ export default function TicTacToe() {
     const diagonal1 = [board[0][0], board[1][1], board[2][2]];
     const diagonal2 = [board[0][2], board[1][1], board[2][0]];
     if (diagonal1.every((cell) => cell === players?.CPU?.SYM)) {
-      setWinner(players?.CPU?.NAME);
+        finalizeGame(players?.CPU?.NAME);
       return;
     } else if (diagonal1.every((cell) => cell === players?.HUMAN?.SYM)) {
-      setWinner(players?.HUMAN?.NAME);
+        finalizeGame(players?.HUMAN?.NAME);
       return;
     } else if (diagonal2.every((cell) => cell === players?.CPU?.SYM)) {
-      setWinner(players?.CPU?.NAME);
+        finalizeGame(players?.CPU?.NAME);
       return;
     } else if (diagonal2.every((cell) => cell === players?.HUMAN?.SYM)) {
-      setWinner(players?.HUMAN?.NAME);
+        finalizeGame(players?.HUMAN?.NAME);
       return;
     } else if (board.flat().every((cell) => cell !== "")) {
-      setWinner("draw");
+        finalizeGame("draw");
       return;
     } else {
-      setWinner(null);
+        finalizeGame(null);
       return;
     }
   }
@@ -138,18 +160,20 @@ export default function TicTacToe() {
   }
 
   function playAgainFn() {
+    playAgain()
     setBoard([
       ["", "", ""],
       ["", "", ""],
       ["", "", ""],
     ]);
-    setWinner(null);
+    finalizeGame(null);
     setIsCPUNext(false);
   }
 
   return (
     <div>
-      <div>{!winner && displayTurn()}</div>
+      {!winner && <Typography sx={{textAlign: "center", mb: 2}} variant="h4">{displayTurn()}</Typography>}
+      {winner && <Typography sx={{textAlign: "center", mb: 2}} variant="h4">{displayWinner()}</Typography>}
       <div className={styles.container}>
         <div className={styles.col}>
           <span onClick={() => playFn(0, 0)} className={styles.cell}>
@@ -185,11 +209,16 @@ export default function TicTacToe() {
           </span>
         </div>
       </div>
-      {winner && <h2>{displayWinner()}</h2>}
+
       {winner && (
-        <button className={styles.video_game_button} onClick={playAgainFn}>
+        <Button
+          size="large"
+          variant="contained"
+          onClick={playAgainFn}
+          sx={{ mt: 4 }}
+        >
           Play Again
-        </button>
+        </Button>
       )}
     </div>
   );

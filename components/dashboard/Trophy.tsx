@@ -9,6 +9,7 @@ import { styled } from "@mui/material/styles";
 import { useUser } from "@supabase/auth-helpers-react";
 
 import NewGameModal from './NewGameModal';
+import { useProfile } from "../../utils/hooks/useProfile";
 
 // Styled component for the triangle shaped background image
 const TriangleImg = styled("img")({
@@ -36,6 +37,7 @@ const Trophy = () => {
   const handlOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
   const user = useUser();
+  const { profile } = useProfile();
   return (
     <Card sx={{ position: "relative" }}>
       <CardContent>
@@ -46,7 +48,7 @@ const Trophy = () => {
           You&apos;re on a win streak
         </Typography>
         <Typography variant="h5" sx={{ my: 4, color: "primary.main" }}>
-          {userData.gamesWon} wins
+          {profile?.countWon ?? 0} wins
         </Typography>
         <Button size="small" variant="contained" onClick={handlOpenModal}>
           Play a new game
