@@ -79,7 +79,7 @@ const renderStats = (profile: any) => {
         </Avatar>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <Typography variant='caption'>{item.title}</Typography>
-          <Typography variant='h6'>{profile ? profile[item.key] : 0}</Typography>
+          <Typography variant='h6'>{profile ? profile[item.key] ?? 0 : 0}</Typography>
         </Box>
       </Box>
     </Grid>
@@ -88,7 +88,6 @@ const renderStats = (profile: any) => {
 
 const PersonalStats = () => {
   const { profile } = useProfile();
-  console.log(profile)
   return (
     <Card>
       <CardHeader

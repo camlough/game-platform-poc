@@ -56,7 +56,6 @@ export default function TicTacToe({setGameResults, playAgain}: Props) {
     if (isCPUNext) return;
     if (winner) return;
     board[arrayIndex][index] = players?.HUMAN?.SYM;
-    console.log("set board");
     setBoard((board) => [...board]);
     checkWinner();
     setIsCPUNext(true);

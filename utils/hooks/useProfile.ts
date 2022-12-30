@@ -22,7 +22,24 @@ export function useProfile() {
       try {
         setLoading(true)
 
-        const { count: countTotal} = await supabase
+        // const { data, error } = await supabase
+        // .from('user_profile_meta')
+        // .select('*')
+        // .eq('user_id', user?.id)
+        // .single();
+
+        // if (error) {
+        //     throw error;
+        // }
+
+        // const { 
+        //     countTotal,
+        //     countWon,
+        //     countDraw,
+        //     countLost
+        // } = data;
+
+        const { error, count: countTotal} = await supabase
           .from('game_results')
           .select('*', {count: 'exact'})
           .eq('user_id', user?.id)
@@ -44,8 +61,6 @@ export function useProfile() {
           .select('*', {count: 'exact'})
           .eq('user_id', user?.id)
           .eq('outcome', 'lost')
-
-        console.log('DATA', countWon, countTotal, countDraw, countLost)
 
         if (error) {
           throw error

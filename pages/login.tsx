@@ -70,7 +70,6 @@ const LoginPage = () => {
         email,
         password
       });
-      console.log('hanle login')
 
       if (error) throw error;
 
