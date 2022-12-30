@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 // ** MUI Imports
 import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
@@ -8,7 +8,7 @@ import { styled } from "@mui/material/styles";
 
 import { useUser } from "@supabase/auth-helpers-react";
 
-import NewGameModal from './NewGameModal';
+import NewGameModal from "./NewGameModal";
 import { useProfile } from "../../utils/hooks/useProfile";
 
 // Styled component for the triangle shaped background image
@@ -59,7 +59,10 @@ const Trophy = () => {
         />
         <TrophyImg alt="trophy" src="/images/misc/trophy.png" />
       </CardContent>
-      <NewGameModal isModalOpen={isModalOpen} handleCloseModal={handleCloseModal} />
+      <NewGameModal
+        isModalOpen={isModalOpen}
+        handleCloseModal={handleCloseModal}
+      />
     </Card>
   );
 };

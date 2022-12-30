@@ -1,8 +1,10 @@
+import { ReactNode } from "react";
 
-
-const GameWrapper = ({children}: any) => {
-
-    return (
-        {children}
-    )
+interface Props {
+  children: ReactNode;
 }
+const GameWrapper = ({ children }: Props) => {
+  return { children };
+};
+
+export default GameWrapper;

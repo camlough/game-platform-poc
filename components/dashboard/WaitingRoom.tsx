@@ -18,25 +18,25 @@ import CardContent from "@mui/material/CardContent";
 import Magnify from "mdi-material-ui/Magnify";
 
 interface DataType {
-    title: string;
-    gameType: string;
-    players: string[],
-    imagePath: string
+  title: string;
+  gameType: string;
+  players: string[];
+  imagePath: string;
 }
 
 const gameData = [
   {
-    gameType: 'tic-tac-toe',
-    title: 'Tic Tac Toe',
-    players: ['johndoe'],
-    imagePath: '/images/misc/tic-tac-toe.png'
+    gameType: "tic-tac-toe",
+    title: "Tic Tac Toe",
+    players: ["johndoe"],
+    imagePath: "/images/misc/tic-tac-toe.png",
   },
   {
-    gameType: 'chess',
-    title: 'Chess',
-    players: ['billybob'],
-    imagePath: '/images/misc/chess.png'
-  }
+    gameType: "chess",
+    title: "Chess",
+    players: ["billybob"],
+    imagePath: "/images/misc/chess.png",
+  },
 ];
 
 const WaitingRoom = () => {
@@ -46,7 +46,9 @@ const WaitingRoom = () => {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const filteredGames = gameData.filter((game) => {
-        return game.players.some(player => player.toLowerCase().includes(event.target.value));
+      return game.players.some((player) =>
+        player.toLowerCase().includes(event.target.value)
+      );
     });
     setActiveGames(filteredGames);
   };
@@ -55,10 +57,11 @@ const WaitingRoom = () => {
       <CardHeader
         title="Waiting Lounge"
         subheader={
-            <Typography variant='body2'>
-                Games that have been initiated by another player, but still waiting on an opponent
-            </Typography>
-          }
+          <Typography variant="body2">
+            Games that have been initiated by another player, but still waiting
+            on an opponent
+          </Typography>
+        }
         titleTypographyProps={{
           sx: {
             lineHeight: "1.2 !important",
@@ -99,8 +102,7 @@ const WaitingRoom = () => {
                   marginRight: 3,
                 }}
                 src={item.imagePath}
-              >
-              </Avatar>
+              ></Avatar>
               <Box
                 sx={{
                   width: "100%",
@@ -125,7 +127,7 @@ const WaitingRoom = () => {
                     </Typography>
                   </Box>
                   <Typography variant="caption" sx={{ lineHeight: 1.5 }}>
-                    {item.players.join(' vs. ')}
+                    {item.players.join(" vs. ")}
                   </Typography>
                 </Box>
                 <Box

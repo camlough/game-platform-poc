@@ -26,11 +26,11 @@ interface indexObject {
 }
 
 interface Props {
-    setGameResults: (result: string) => void;
-    playAgain: () => void;
+  setGameResults: (result: string) => void;
+  playAgain: () => void;
 }
 
-export default function TicTacToe({setGameResults, playAgain}: Props) {
+export default function TicTacToe({ setGameResults, playAgain }: Props) {
   const [board, setBoard] = useState([
     ["", "", ""],
     ["", "", ""],
@@ -42,15 +42,15 @@ export default function TicTacToe({setGameResults, playAgain}: Props) {
   const finalizeGame = async (player: string | null) => {
     setWinner(player);
     if (player) {
-        if (player === players?.HUMAN?.NAME) {
-            await setGameResults('won');
-        } else if (player === 'draw') {
-            await setGameResults('draw');
-        } else {
-            await setGameResults('lost')
-        }
+      if (player === players?.HUMAN?.NAME) {
+        await setGameResults("won");
+      } else if (player === "draw") {
+        await setGameResults("draw");
+      } else {
+        await setGameResults("lost");
+      }
     }
-  }
+  };
 
   function playFn(arrayIndex: number, index: number) {
     if (isCPUNext) return;
@@ -123,22 +123,22 @@ export default function TicTacToe({setGameResults, playAgain}: Props) {
     const diagonal1 = [board[0][0], board[1][1], board[2][2]];
     const diagonal2 = [board[0][2], board[1][1], board[2][0]];
     if (diagonal1.every((cell) => cell === players?.CPU?.SYM)) {
-        finalizeGame(players?.CPU?.NAME);
+      finalizeGame(players?.CPU?.NAME);
       return;
     } else if (diagonal1.every((cell) => cell === players?.HUMAN?.SYM)) {
-        finalizeGame(players?.HUMAN?.NAME);
+      finalizeGame(players?.HUMAN?.NAME);
       return;
     } else if (diagonal2.every((cell) => cell === players?.CPU?.SYM)) {
-        finalizeGame(players?.CPU?.NAME);
+      finalizeGame(players?.CPU?.NAME);
       return;
     } else if (diagonal2.every((cell) => cell === players?.HUMAN?.SYM)) {
-        finalizeGame(players?.HUMAN?.NAME);
+      finalizeGame(players?.HUMAN?.NAME);
       return;
     } else if (board.flat().every((cell) => cell !== "")) {
-        finalizeGame("draw");
+      finalizeGame("draw");
       return;
     } else {
-        finalizeGame(null);
+      finalizeGame(null);
       return;
     }
   }
@@ -160,7 +160,7 @@ export default function TicTacToe({setGameResults, playAgain}: Props) {
   }
 
   function playAgainFn() {
-    playAgain()
+    playAgain();
     setBoard([
       ["", "", ""],
       ["", "", ""],
@@ -172,8 +172,16 @@ export default function TicTacToe({setGameResults, playAgain}: Props) {
 
   return (
     <div>
-      {!winner && <Typography sx={{textAlign: "center", mb: 2}} variant="h4">{displayTurn()}</Typography>}
-      {winner && <Typography sx={{textAlign: "center", mb: 2}} variant="h4">{displayWinner()}</Typography>}
+      {!winner && (
+        <Typography sx={{ textAlign: "center", mb: 2 }} variant="h4">
+          {displayTurn()}
+        </Typography>
+      )}
+      {winner && (
+        <Typography sx={{ textAlign: "center", mb: 2 }} variant="h4">
+          {displayWinner()}
+        </Typography>
+      )}
       <div className={styles.container}>
         <div className={styles.col}>
           <span onClick={() => playFn(0, 0)} className={styles.cell}>
