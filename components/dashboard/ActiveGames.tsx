@@ -14,49 +14,47 @@ import TextField from "@mui/material/TextField";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 
-import { nanoid } from "nanoid";
-
 // ** Icons Imports
 import Magnify from "mdi-material-ui/Magnify";
 
-interface DataType {
+interface GameDataType {
   title: string;
   gameType: string;
   players: string[];
   imagePath: string;
   id: string;
 }
-
-const gameData: DataType[] = [
-  {
-    gameType: "tic-tac-toe",
-    title: "Tic Tac Toe",
-    players: ["camlough", "johndoe"],
-    imagePath: "/images/misc/tic-tac-toe.png",
-    id: nanoid(6),
-  },
-  {
-    gameType: "chess",
-    title: "Chess",
-    players: ["billybob", "BotOne"],
-    imagePath: "/images/misc/chess.png",
-    id: nanoid(6),
-  },
-  {
-    gameType: "chess",
-    title: "Chess",
-    players: ["susan", "BotTwo"],
-    imagePath: "/images/misc/chess.png",
-    id: nanoid(6),
-  },
-  {
-    gameType: "tic-tac-toe",
-    title: "Tic Tac Toe",
-    players: ["kristin", "danny"],
-    imagePath: "/images/misc/tic-tac-toe.png",
-    id: nanoid(6),
-  },
-];
+const id = 'u9GqAK';
+const gameData: GameDataType[] = [
+    {
+      gameType: "tic-tac-toe",
+      title: "Tic Tac Toe",
+      players: ["camlough", "johndoe"],
+      imagePath: "/images/misc/tic-tac-toe.png",
+      id,
+    },
+    {
+      gameType: "chess",
+      title: "Chess",
+      players: ["billybob", "BotOne"],
+      imagePath: "/images/misc/chess.png",
+      id,
+    },
+    {
+      gameType: "chess",
+      title: "Chess",
+      players: ["susan", "BotTwo"],
+      imagePath: "/images/misc/chess.png",
+      id,
+    },
+    {
+      gameType: "tic-tac-toe",
+      title: "Tic Tac Toe",
+      players: ["kristin", "danny"],
+      imagePath: "/images/misc/tic-tac-toe.png",
+      id,
+    },
+  ];
 
 const ActiveGames = () => {
   const [activeGames, setActiveGames] = useState(gameData);
@@ -101,7 +99,7 @@ const ActiveGames = () => {
             ),
           }}
         />
-        {activeGames.map((item: DataType, index: number) => {
+        {activeGames.map((item: GameDataType, index: number) => {
           return (
             <Box
               key={`${item.title}-${index}`}
