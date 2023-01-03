@@ -75,7 +75,7 @@ It is worth noting that there are some alternatives to SocketIO that could be le
     game_state: json
     room_id: varchar (short id representing websocket room)
     ```    
-* user_game_record - a new record is created for each user when they start playing a game, keep record of their moves made, outcome, etc. 
+* user_game_record - a new record is created for each user when they start playing a game, keep record of their peronal moves made, outcome, etc. 
     ```
     id: uuid
     game_record_id: uuid (foriegn key relation to game_record)
@@ -83,6 +83,8 @@ It is worth noting that there are some alternatives to SocketIO that could be le
     outcome: text ('won', 'lost', 'tied')
     moves: json
     ```
+## Client - Server communication
+As mentioned, realtime communication happens via websockets. Database CRUD currently is implemented within react pages/components directly, using Supabase's provided client. This removes unnecessary network calls however API endpoints could be created to handle CRUD operations if an API is needed in the future. 
 
 ## How Game Play Works (or should work)
 ### AI opponent
@@ -96,3 +98,5 @@ When a game is initiated, a new game_record row is created. Each game is assigne
 2. Create a separate microservice to handle the websocket communication.
 3. Add API endpoints for things like canceling games and banning users.
 4. Add caching for user and game data to reduce DB calls and improve performance.
+5. Create a CMS for adding/managing games, and make game routes more dynamic so that there are less/no code changes required to add new games to the platform. 
+ 
