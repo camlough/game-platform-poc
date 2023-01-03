@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import type { NextPage } from "next";
+import { Analytics } from '@vercel/analytics/react';
 
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
@@ -23,6 +24,7 @@ export default function App({ Component, pageProps }: ExtendedAppProps) {
       initialSession={pageProps.initialSession}
     >
       {getLayout(<Component {...pageProps} />)}
+      <Analytics />
     </SessionContextProvider>
   );
 }
