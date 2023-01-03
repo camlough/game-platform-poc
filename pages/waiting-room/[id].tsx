@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { Button, Grid, Typography } from "@mui/material";
+import { NextApiRequest, NextApiResponse } from "next";
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 const WaitingRoom = () => {
   const router = useRouter();
@@ -41,5 +43,31 @@ const WaitingRoom = () => {
     </Box>
   );
 };
+
+export const getServerSideProps = async ({
+    req,
+    res,
+  }: {
+    req: NextApiRequest;
+    res: NextApiResponse;
+  }) => {
+    const supabaseServerClient = createServerSupabaseClient({ req, res });
+    const {
+      data: { user },
+    } = await supabaseServerClient.auth.getUser();
+  
+    if (!user) {
+      return {
+        props: {},
+        redirect: {
+          destination: "/",
+          premanent: false,
+        },
+      };
+    }
+    return {
+        props: {}
+    }
+}
 
 export default WaitingRoom;
