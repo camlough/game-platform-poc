@@ -16,8 +16,8 @@ export default function App({ Component, pageProps }: ExtendedAppProps) {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
   const getLayout =
     Component.getLayout ?? ((page) => <UserLayout>{page}</UserLayout>);
-  
-return (
+
+  return (
     <SessionContextProvider
       supabaseClient={supabaseClient}
       initialSession={pageProps.initialSession}

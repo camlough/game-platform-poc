@@ -57,8 +57,8 @@ const WaitingRoom = () => {
     });
     setActiveGames(filteredGames);
   };
-  
-return (
+
+  return (
     <Card>
       <CardHeader
         title="Waiting Lounge"

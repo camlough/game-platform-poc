@@ -36,8 +36,8 @@ const Img = styled("img")(({ theme }) => ({
 
 const Error404 = () => {
   const router = useRouter();
-  
-return (
+
+  return (
     <Box className="content-center">
       <Box
         sx={{

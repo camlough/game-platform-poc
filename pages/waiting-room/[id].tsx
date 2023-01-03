@@ -10,8 +10,8 @@ const WaitingRoom = () => {
   const handleCancelGame = () => {
     router.push("/");
   };
-  
-return (
+
+  return (
     <Box sx={{ mt: 10 }}>
       <Grid
         container
@@ -66,8 +66,8 @@ export const getServerSideProps = async ({
       },
     };
   }
-  
-return {
+
+  return {
     props: {},
   };
 };

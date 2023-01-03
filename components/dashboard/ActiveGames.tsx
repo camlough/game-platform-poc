@@ -69,8 +69,8 @@ const ActiveGames = () => {
     });
     setActiveGames(filteredGames);
   };
-  
-return (
+
+  return (
     <Card>
       <CardHeader
         title="Active Games"
