@@ -5,13 +5,7 @@ import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 } from "uuid";
 import { useRouter } from "next/router";
-import { useProfile } from "../../../utils/hooks/useProfile";
-export interface Profile {
-  countWon: number | null;
-  countLost: number;
-  countDraw: number;
-  countTotal: number | null;
-}
+
 const TicTacToeGame = ({ gameId }: { gameId: string }) => {
   const user = useUser();
   const supabase = useSupabaseClient();
@@ -26,6 +20,7 @@ const TicTacToeGame = ({ gameId }: { gameId: string }) => {
         completed_at: new Date(),
         opponent_username: "BotOne",
       };
+
       // update game record
       const { error: gameResultError } = await supabase
         .from("game_results")
@@ -77,6 +72,7 @@ export const getServerSideProps = async ({
       },
     };
   }
+
   // create a record for the new game
   const { data } = await supabaseServerClient
     .from("game_results")

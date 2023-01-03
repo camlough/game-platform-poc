@@ -1,13 +1,15 @@
 // ** MUI Imports
 import Grid from "@mui/material/Grid";
 
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useUser } from "@supabase/auth-helpers-react";
 
 import Trophy from "../components/dashboard/Trophy";
 import OverviewStats from "../components/dashboard/OverviewStats";
 import ActiveGames from "../components/dashboard/ActiveGames";
 import WaitingRoom from "../components/dashboard/WaitingRoom";
 import PersonalStats from "../components/dashboard/PersonalStats";
+
+import { useProfile, Profile } from "../utils/hooks/useProfile";
 
 const renderUnauthenticatedView = () => {
   return (
@@ -22,14 +24,14 @@ const renderUnauthenticatedView = () => {
   );
 };
 
-const renderAuthenticatedView = () => {
+const renderAuthenticatedView = (profile: Profile | null) => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12} md={4}>
-        <Trophy />
+        <Trophy profile={profile} />
       </Grid>
       <Grid item xs={12} md={8}>
-        <PersonalStats />
+        <PersonalStats profile={profile} />
       </Grid>
       <Grid item xs={12} md={12}>
         <OverviewStats />
@@ -46,8 +48,9 @@ const renderAuthenticatedView = () => {
 
 export default function Home() {
   const user = useUser();
+  const { profile } = useProfile();
   if (user) {
-    return renderAuthenticatedView();
+    return renderAuthenticatedView(profile);
   } else {
     return renderUnauthenticatedView();
   }

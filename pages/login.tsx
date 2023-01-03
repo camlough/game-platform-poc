@@ -22,7 +22,7 @@ import IconButton from "@mui/material/IconButton";
 import CardContent from "@mui/material/CardContent";
 import FormControl from "@mui/material/FormControl";
 import OutlinedInput from "@mui/material/OutlinedInput";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import MuiCard, { CardProps } from "@mui/material/Card";
 import InputAdornment from "@mui/material/InputAdornment";
 
@@ -120,7 +120,7 @@ const LoginPage = () => {
               Welcome 👋🏻
             </Typography>
             <Typography variant="body2">
-              Please sign-in to your account and start playing
+              Please sign-in to your account to start playing
             </Typography>
           </Box>
           <form noValidate autoComplete="off" onSubmit={(e) => handleLogin(e)}>

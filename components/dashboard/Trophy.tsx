@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 // ** MUI Imports
 import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
@@ -9,7 +10,7 @@ import { styled } from "@mui/material/styles";
 import { useUser } from "@supabase/auth-helpers-react";
 
 import NewGameModal from "./NewGameModal";
-import { useProfile } from "../../utils/hooks/useProfile";
+import { Profile } from "../../utils/hooks/useProfile";
 
 // Styled component for the triangle shaped background image
 const TriangleImg = styled("img")({
@@ -27,17 +28,12 @@ const TrophyImg = styled("img")({
   position: "absolute",
 });
 
-const userData = {
-  gamesWon: 9,
-  gamesPlayed: 34,
-};
-
-const Trophy = () => {
+const Trophy = ({ profile }: { profile: Profile | null }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const handlOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
   const user = useUser();
-  const { profile } = useProfile();
+
   return (
     <Card sx={{ position: "relative" }}>
       <CardContent>

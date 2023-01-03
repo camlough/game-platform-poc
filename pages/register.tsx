@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, Fragment, ChangeEvent, MouseEvent, ReactNode } from "react";
+import { useState, ChangeEvent, MouseEvent, ReactNode } from "react";
 
 // ** Next Imports
 import Link from "next/link";
@@ -117,7 +117,7 @@ const RegisterPage = () => {
               variant="h5"
               sx={{ fontWeight: 600, marginBottom: 1.5 }}
             >
-              Your Saasy Games adventure starts here 🚀
+              Welcome to Saasy Games
             </Typography>
             <Typography variant="body2">Create your account now</Typography>
           </Box>

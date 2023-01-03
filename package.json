@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --fix \"/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint --fix \"**/*.{js,jsx,ts,tsx}\"",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
@@ -27,10 +27,11 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
     "eslint": "8.30.0",
     "eslint-config-next": "13.1.1",
     "eslint-config-prettier": "^8.5.0",
-    "prettier": "^2.8.1",
-    "@types/uuid": "^9.0.0"
+    "prettier": "^2.8.1"
   }
 }

@@ -28,9 +28,14 @@ interface indexObject {
 interface Props {
   setGameResults: (result: string) => void;
   playAgain: () => void;
+  spectateMode?: boolean;
 }
 
-export default function TicTacToe({ setGameResults, playAgain }: Props) {
+export default function TicTacToe({
+  setGameResults,
+  playAgain,
+  spectateMode = false,
+}: Props) {
   const [board, setBoard] = useState([
     ["", "", ""],
     ["", "", ""],
@@ -53,6 +58,7 @@ export default function TicTacToe({ setGameResults, playAgain }: Props) {
   };
 
   function playFn(arrayIndex: number, index: number) {
+    if (spectateMode) return;
     if (isCPUNext) return;
     if (winner) return;
     board[arrayIndex][index] = players?.HUMAN?.SYM;
@@ -91,7 +97,8 @@ export default function TicTacToe({ setGameResults, playAgain }: Props) {
       });
     });
     const randomIndex = Math.floor(Math.random() * emptyIndexes.length);
-    return emptyIndexes[randomIndex];
+    
+return emptyIndexes[randomIndex];
   }
 
   function checkWinner() {
@@ -100,10 +107,12 @@ export default function TicTacToe({ setGameResults, playAgain }: Props) {
       const row = board[index];
       if (row.every((cell) => cell === players?.CPU?.SYM)) {
         finalizeGame(players?.CPU?.NAME);
-        return;
+        
+return;
       } else if (row.every((cell) => cell === players?.HUMAN?.SYM)) {
         finalizeGame(players?.HUMAN?.NAME);
-        return;
+        
+return;
       }
     }
 
@@ -112,10 +121,12 @@ export default function TicTacToe({ setGameResults, playAgain }: Props) {
       const column = board.map((row) => row[i]);
       if (column.every((cell) => cell === players?.CPU?.SYM)) {
         finalizeGame(players?.CPU?.NAME);
-        return;
+        
+return;
       } else if (column.every((cell) => cell === players?.HUMAN?.SYM)) {
         finalizeGame(players?.HUMAN?.NAME);
-        return;
+        
+return;
       }
     }
 
@@ -124,22 +135,28 @@ export default function TicTacToe({ setGameResults, playAgain }: Props) {
     const diagonal2 = [board[0][2], board[1][1], board[2][0]];
     if (diagonal1.every((cell) => cell === players?.CPU?.SYM)) {
       finalizeGame(players?.CPU?.NAME);
-      return;
+      
+return;
     } else if (diagonal1.every((cell) => cell === players?.HUMAN?.SYM)) {
       finalizeGame(players?.HUMAN?.NAME);
-      return;
+      
+return;
     } else if (diagonal2.every((cell) => cell === players?.CPU?.SYM)) {
       finalizeGame(players?.CPU?.NAME);
-      return;
+      
+return;
     } else if (diagonal2.every((cell) => cell === players?.HUMAN?.SYM)) {
       finalizeGame(players?.HUMAN?.NAME);
-      return;
+      
+return;
     } else if (board.flat().every((cell) => cell !== "")) {
       finalizeGame("draw");
-      return;
+      
+return;
     } else {
       finalizeGame(null);
-      return;
+      
+return;
     }
   }
 
@@ -152,6 +169,9 @@ export default function TicTacToe({ setGameResults, playAgain }: Props) {
   }
 
   function displayTurn() {
+    if (spectateMode) {
+      return "";
+    }
     if (isCPUNext) {
       return "CPU's turn";
     } else {
