@@ -42,6 +42,8 @@ const NewGameModal = ({ isModalOpen, handleCloseModal }: Props) => {
     gameType: "tic-tac-toe",
   });
 
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
   const router = useRouter();
 
   const handleChange = (prop: keyof State) => (event: SelectChangeEvent) => {
@@ -50,6 +52,7 @@ const NewGameModal = ({ isModalOpen, handleCloseModal }: Props) => {
 
   const handleStartGame = () => {
     const id = nanoid(6);
+    setButtonDisabled(true);
     if (values.opponentType === "human") {
       router.push(`/waiting-room/${id}`);
     } else {
@@ -116,6 +119,7 @@ const NewGameModal = ({ isModalOpen, handleCloseModal }: Props) => {
           variant="contained"
           type="submit"
           sx={{ mt: 2 }}
+          disabled={buttonDisabled}
           onClick={() => handleStartGame()}
         >
           Start Game
