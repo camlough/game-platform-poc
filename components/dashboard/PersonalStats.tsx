@@ -16,7 +16,7 @@ import TrophyVariantOutline from "mdi-material-ui/TrophyVariantOutline";
 import EmoticonSadOutline from "mdi-material-ui/EmoticonSadOutline";
 import HandshakeOutline from "mdi-material-ui/HandshakeOutline";
 
-import { useProfile } from "../../utils/hooks/useProfile";
+import { Profile } from "../../utils/hooks/useProfile";
 
 // ** Types
 type ThemeColor =
@@ -94,8 +94,7 @@ const renderStats = (profile: any) => {
   ));
 };
 
-const PersonalStats = () => {
-  const { profile } = useProfile();
+const PersonalStats = ({ profile }: { profile: Profile | null }) => {
   return (
     <Card>
       <CardHeader

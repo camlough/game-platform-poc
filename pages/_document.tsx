@@ -15,7 +15,7 @@ export default function Document() {
           sizes="180x180"
           href="/images/apple-touch-icon.png"
         />
-        <link rel="shortcut icon" href="/images/favicon.png" />
+        <link rel="shortcut icon" href="/images/logos/saasy-games-1.png" />
       </Head>
       <body>
         <Main />

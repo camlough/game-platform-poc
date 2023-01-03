@@ -57,6 +57,7 @@ const WaitingRoom = () => {
     });
     setActiveGames(filteredGames);
   };
+
   return (
     <Card>
       <CardHeader

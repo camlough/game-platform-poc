@@ -89,10 +89,10 @@ const StatisticsCard = () => {
   return (
     <Card>
       <CardHeader
-        title="Overall Stats"
+        title="Platform Stats"
         subheader={
           <Typography variant="body2" sx={{ mb: 2 }}>
-            Some stats about the platform 😎
+            Some overall stats about Saasy Games 😎
           </Typography>
         }
         titleTypographyProps={{

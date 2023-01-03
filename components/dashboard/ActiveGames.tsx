@@ -24,37 +24,37 @@ interface GameDataType {
   imagePath: string;
   id: string;
 }
-const id = 'u9GqAK';
+const id = "u9GqAK";
 const gameData: GameDataType[] = [
-    {
-      gameType: "tic-tac-toe",
-      title: "Tic Tac Toe",
-      players: ["camlough", "johndoe"],
-      imagePath: "/images/misc/tic-tac-toe.png",
-      id,
-    },
-    {
-      gameType: "chess",
-      title: "Chess",
-      players: ["billybob", "BotOne"],
-      imagePath: "/images/misc/chess.png",
-      id,
-    },
-    {
-      gameType: "chess",
-      title: "Chess",
-      players: ["susan", "BotTwo"],
-      imagePath: "/images/misc/chess.png",
-      id,
-    },
-    {
-      gameType: "tic-tac-toe",
-      title: "Tic Tac Toe",
-      players: ["kristin", "danny"],
-      imagePath: "/images/misc/tic-tac-toe.png",
-      id,
-    },
-  ];
+  {
+    gameType: "tic-tac-toe",
+    title: "Tic Tac Toe",
+    players: ["camlough", "johndoe"],
+    imagePath: "/images/misc/tic-tac-toe.png",
+    id,
+  },
+  {
+    gameType: "chess",
+    title: "Chess",
+    players: ["billybob", "BotOne"],
+    imagePath: "/images/misc/chess.png",
+    id,
+  },
+  {
+    gameType: "chess",
+    title: "Chess",
+    players: ["susan", "BotTwo"],
+    imagePath: "/images/misc/chess.png",
+    id,
+  },
+  {
+    gameType: "tic-tac-toe",
+    title: "Tic Tac Toe",
+    players: ["kristin", "danny"],
+    imagePath: "/images/misc/tic-tac-toe.png",
+    id,
+  },
+];
 
 const ActiveGames = () => {
   const [activeGames, setActiveGames] = useState(gameData);
@@ -69,6 +69,7 @@ const ActiveGames = () => {
     });
     setActiveGames(filteredGames);
   };
+
   return (
     <Card>
       <CardHeader

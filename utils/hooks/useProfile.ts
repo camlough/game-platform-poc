@@ -1,4 +1,3 @@
-import { AuthSession } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 
@@ -20,58 +19,60 @@ export function useProfile() {
   useEffect(() => {
     (async function () {
       try {
-        setLoading(true);
+        if (user) {
+          setLoading(true);
 
-        // const { data, error } = await supabase
-        // .from('user_profile_meta')
-        // .select('*')
-        // .eq('user_id', user?.id)
-        // .single();
+          // const { data, error } = await supabase
+          // .from('user_profile_meta')
+          // .select('*')
+          // .eq('user_id', user?.id)
+          // .single();
 
-        // if (error) {
-        //     throw error;
-        // }
+          // if (error) {
+          //     throw error;
+          // }
 
-        // const {
-        //     countTotal,
-        //     countWon,
-        //     countDraw,
-        //     countLost
-        // } = data;
+          // const {
+          //     countTotal,
+          //     countWon,
+          //     countDraw,
+          //     countLost
+          // } = data;
 
-        const { error, count: countTotal } = await supabase
-          .from("game_results")
-          .select("*", { count: "exact" })
-          .eq("user_id", user?.id);
+          const { error, count: countTotal } = await supabase
+            .from("game_results")
+            .select("*", { count: "exact" })
+            .eq("user_id", user?.id);
 
-        const { count: countWon } = await supabase
-          .from("game_results")
-          .select("*", { count: "exact" })
-          .eq("user_id", user?.id)
-          .eq("outcome", "won");
+          const { count: countWon } = await supabase
+            .from("game_results")
+            .select("*", { count: "exact" })
+            .eq("user_id", user?.id)
+            .eq("outcome", "won");
 
-        const { count: countDraw } = await supabase
-          .from("game_results")
-          .select("*", { count: "exact" })
-          .eq("user_id", user?.id)
-          .eq("outcome", "draw");
+          const { count: countDraw } = await supabase
+            .from("game_results")
+            .select("*", { count: "exact" })
+            .eq("user_id", user?.id)
+            .eq("outcome", "draw");
 
-        const { count: countLost } = await supabase
-          .from("game_results")
-          .select("*", { count: "exact" })
-          .eq("user_id", user?.id)
-          .eq("outcome", "lost");
+          const { count: countLost } = await supabase
+            .from("game_results")
+            .select("*", { count: "exact" })
+            .eq("user_id", user?.id)
+            .eq("outcome", "lost");
 
-        if (error) {
-          throw error;
+          if (error) {
+            throw error;
+          }
+
+          setProfile({
+            countWon,
+            countTotal,
+            countDraw,
+            countLost,
+          });
         }
-
-        setProfile({
-          countWon,
-          countTotal,
-          countDraw,
-          countLost,
-        });
       } catch (error: any) {
         setError(error);
       } finally {

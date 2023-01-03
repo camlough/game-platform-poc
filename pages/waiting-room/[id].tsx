@@ -10,6 +10,7 @@ const WaitingRoom = () => {
   const handleCancelGame = () => {
     router.push("/");
   };
+
   return (
     <Box sx={{ mt: 10 }}>
       <Grid
@@ -45,29 +46,30 @@ const WaitingRoom = () => {
 };
 
 export const getServerSideProps = async ({
-    req,
-    res,
-  }: {
-    req: NextApiRequest;
-    res: NextApiResponse;
-  }) => {
-    const supabaseServerClient = createServerSupabaseClient({ req, res });
-    const {
-      data: { user },
-    } = await supabaseServerClient.auth.getUser();
-  
-    if (!user) {
-      return {
-        props: {},
-        redirect: {
-          destination: "/",
-          premanent: false,
-        },
-      };
-    }
+  req,
+  res,
+}: {
+  req: NextApiRequest;
+  res: NextApiResponse;
+}) => {
+  const supabaseServerClient = createServerSupabaseClient({ req, res });
+  const {
+    data: { user },
+  } = await supabaseServerClient.auth.getUser();
+
+  if (!user) {
     return {
-        props: {}
-    }
-}
+      props: {},
+      redirect: {
+        destination: "/",
+        premanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 
 export default WaitingRoom;
