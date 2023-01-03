@@ -1,4 +1,7 @@
 # Saasy Games Prototype
+<img src="public/images/logos/saasy-games-1.png" width="200" />
+
+A live demo of the Saasy Games prototype can be found [here](https://game-platform-mmlg3tt7h-camlough.vercel.app/)
 
 ## Running locally
 1. Run `npm install` to install dependencies
@@ -80,5 +83,11 @@ Each game that is initiated is assigned a unique short ID (using `nanoid`), whic
 ## Alternative Approaches for Realtime Communication/Updates
 It is worth noting that there are some alternatives to SocketIO that could be leveraged in order to achieve a similar multiplayer experience but with less overall engineering work/maintanence:
 * [Replicache](https://replicache.dev/) - Really intereseting framework designed for Javascript applications (support for React and Next.js). Offline support, syncs with databases on the backend, and provides super fast updates.
-* [Pusher](https://pusher.com/channels) - Hosted websocket service that takes care of all the hard stuff involved with scaling websocket infrastucture
+* [Pusher](https://pusher.com/channels) - Hosted websocket service that takes care of all the hard stuff involved with scaling websocket infrastucture.
 * [Supabase Database Events](https://supabase.com/docs/reference/javascript/subscribe) A client can subscribe to database changes, so in theory, when a move is made, that move could update the database and then be sent to other clients (players) in order to update the UI accordingly. Didn't have time to fully research this, I suspect latency may be a problem.
+
+## Next Steps/Milestones
+1. Add comprehensive unit and e2e tests for thorough code coverage.
+2. Create a separate microservice to handle the websocket communication.
+3. Add API endpoints for things like canceling games and banning users
+4. 
