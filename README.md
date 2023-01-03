@@ -1,7 +1,7 @@
 # Saasy Games Prototype
 <img src="public/images/logos/saasy-games-1.png" width="200" />
 
-A live demo of the Saasy Games prototype can be found [here](https://game-platform-mmlg3tt7h-camlough.vercel.app/)
+A live demo of the Saasy Games prototype can be found [here](https://game-platform-poc.vercel.app/)
 
 ## Running locally
 1. Run `npm install` to install dependencies
