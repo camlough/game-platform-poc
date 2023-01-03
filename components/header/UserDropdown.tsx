@@ -104,7 +104,7 @@ const UserDropdown = () => {
           sx={{ py: 2 }}
           onClick={() => {
             supabaseClient.auth.signOut();
-            handleDropdownClose('/')
+            handleDropdownClose("/");
           }}
         >
           <LogoutVariant

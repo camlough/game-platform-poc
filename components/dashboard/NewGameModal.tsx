@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
-import { nanoid } from 'nanoid';
+import { nanoid } from "nanoid";
 
 const modalStyle = {
   position: "absolute" as "absolute",

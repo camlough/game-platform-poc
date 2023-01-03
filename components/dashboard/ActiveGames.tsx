@@ -17,39 +17,44 @@ import CardContent from "@mui/material/CardContent";
 // ** Icons Imports
 import Magnify from "mdi-material-ui/Magnify";
 
-interface DataType {
-    title: string;
-    gameType: string;
-    players: string[],
-    imagePath: string
+interface GameDataType {
+  title: string;
+  gameType: string;
+  players: string[];
+  imagePath: string;
+  id: string;
 }
-
-const gameData = [
-  {
-    gameType: 'tic-tac-toe',
-    title: 'Tic Tac Toe',
-    players: ['camlough', 'johndoe'],
-    imagePath: '/images/misc/tic-tac-toe.png'
-  },
-  {
-    gameType: 'chess',
-    title: 'Chess',
-    players: ['billybob',  'BotOne'],
-    imagePath: '/images/misc/chess.png'
-  },
-  {
-    gameType: 'chess',
-    title: 'Chess',
-    players: ['susan',  'BotTwo'],
-    imagePath: '/images/misc/chess.png'
-  },
-  {
-    gameType: 'tic-tac-toe',
-    title: 'Tic Tac Toe',
-    players: ['kristin',  'danny'],
-    imagePath: '/images/misc/tic-tac-toe.png'
-  },
-];
+const id = 'u9GqAK';
+const gameData: GameDataType[] = [
+    {
+      gameType: "tic-tac-toe",
+      title: "Tic Tac Toe",
+      players: ["camlough", "johndoe"],
+      imagePath: "/images/misc/tic-tac-toe.png",
+      id,
+    },
+    {
+      gameType: "chess",
+      title: "Chess",
+      players: ["billybob", "BotOne"],
+      imagePath: "/images/misc/chess.png",
+      id,
+    },
+    {
+      gameType: "chess",
+      title: "Chess",
+      players: ["susan", "BotTwo"],
+      imagePath: "/images/misc/chess.png",
+      id,
+    },
+    {
+      gameType: "tic-tac-toe",
+      title: "Tic Tac Toe",
+      players: ["kristin", "danny"],
+      imagePath: "/images/misc/tic-tac-toe.png",
+      id,
+    },
+  ];
 
 const ActiveGames = () => {
   const [activeGames, setActiveGames] = useState(gameData);
@@ -58,7 +63,9 @@ const ActiveGames = () => {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const filteredGames = gameData.filter((game) => {
-        return game.players.some(player => player.toLowerCase().includes(event.target.value));
+      return game.players.some((player) =>
+        player.toLowerCase().includes(event.target.value)
+      );
     });
     setActiveGames(filteredGames);
   };
@@ -67,10 +74,10 @@ const ActiveGames = () => {
       <CardHeader
         title="Active Games"
         subheader={
-            <Typography variant='body2'>
-                Games that are currently in play
-            </Typography>
-          }
+          <Typography variant="body2">
+            Games that are currently in play
+          </Typography>
+        }
         titleTypographyProps={{
           sx: {
             lineHeight: "1.2 !important",
@@ -92,7 +99,7 @@ const ActiveGames = () => {
             ),
           }}
         />
-        {activeGames.map((item: DataType, index: number) => {
+        {activeGames.map((item: GameDataType, index: number) => {
           return (
             <Box
               key={`${item.title}-${index}`}
@@ -111,8 +118,7 @@ const ActiveGames = () => {
                   marginRight: 3,
                 }}
                 src={item.imagePath}
-              >
-              </Avatar>
+              ></Avatar>
               <Box
                 sx={{
                   width: "100%",
@@ -137,7 +143,7 @@ const ActiveGames = () => {
                     </Typography>
                   </Box>
                   <Typography variant="caption" sx={{ lineHeight: 1.5 }}>
-                    {item.players.join(' vs. ')}
+                    {item.players.join(" vs. ")}
                   </Typography>
                 </Box>
                 <Box
@@ -155,7 +161,9 @@ const ActiveGames = () => {
                       letterSpacing: "0.22px",
                     }}
                   >
-                    <Link href="/game-in-progress">Spectate</Link>
+                    <Link href={`/watch-game/${item.gameType}/${item.id}`}>
+                      Spectate
+                    </Link>
                   </Typography>
                 </Box>
               </Box>

@@ -1,16 +1,16 @@
 // ** React Imports
 import { ReactNode } from "react";
 
-import Link from 'next/link'
-import Image from 'next/image'
-import { useRouter } from 'next/router';
+import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 // ** MUI Imports
 import { styled } from "@mui/material/styles";
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import MuiAppBar, { AppBarProps } from "@mui/material/AppBar";
-import IconButton from '@mui/material/IconButton'
+import IconButton from "@mui/material/IconButton";
 import MuiToolbar, { ToolbarProps } from "@mui/material/Toolbar";
 import { useUser } from "@supabase/auth-helpers-react";
 
@@ -41,7 +41,6 @@ const Toolbar = styled(MuiToolbar)<ToolbarProps>(({ theme }) => ({
 }));
 
 const LayoutAppBar = () => {
-
   // ** Hooks
   const user = useUser();
   const router = useRouter();
@@ -78,19 +77,30 @@ const LayoutAppBar = () => {
             className="actions-left"
             sx={{ mr: 2, display: "flex", alignItems: "center" }}
           >
-          <IconButton
-            color='inherit'
-            onClick={() => router.push('/')}
-            sx={{ ml: -2.75,  mr: 3.5 }}
-          >
-            <Image width={40} height={40} alt="logo" src="/images/logos/google.png" />
-          </IconButton>
+            <IconButton
+              color="inherit"
+              onClick={() => router.push("/")}
+              sx={{ ml: -2.75, mr: 3.5 }}
+            >
+              <Image
+                width={60}
+                height={60}
+                alt="logo"
+                src="/images/logos/saasy-games-1.png"
+              />
+            </IconButton>
           </Box>
           <Box
             className="actions-right"
             sx={{ display: "flex", alignItems: "center" }}
           >
-            {user ? <UserDropdown /> : (<Typography><Link href="/login">Login</Link></Typography>)}
+            {user ? (
+              <UserDropdown />
+            ) : (
+              <Typography>
+                <Link href="/login">Login</Link>
+              </Typography>
+            )}
           </Box>
         </Box>
       </Toolbar>
